@@ -20,9 +20,9 @@ export function ProfilePage({ loadProfile }) {
   return (
     <div>
       <h1>Profile</h1>
-      <div>{data.name}</div>
+      <div class={"profile"}>{data.name}</div>
       {data.picture && (
-        <div>
+        <div class={"profile"}>
           <img src={data.picture} />
         </div>
       )}

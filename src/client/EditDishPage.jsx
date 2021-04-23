@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { LoadingView } from "./LoadingView";
-import { InputField } from "./InputField";
+import { LoadingView } from "./components/LoadingView";
+import { InputField } from "./components/InputField";
 import { useLoading } from "./useLoading";
-import { ErrorView } from "./ErrorView";
+import { ErrorView } from "./components/ErrorView";
 import {useParams} from "react-router";
 
 function EditDishForm({ dish }) {

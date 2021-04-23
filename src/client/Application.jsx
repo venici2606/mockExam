@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
-import { Route, Switch } from "react-router";
-import { ProfilePage } from "./ProfilePage";
-import { fetchJson } from "./lib/http";
-import { LoginPage } from "./LoginPage";
-import { LoginCallbackPage } from "./LoginCallbackPage";
+import React, {useEffect, useState} from "react";
+import {BrowserRouter, Link} from "react-router-dom";
+import {Route, Switch} from "react-router";
+import {ProfilePage} from "./ProfilePage";
+import {fetchJson} from "./lib/http";
+import {LoginPage} from "./LoginPage";
+import {LoginCallbackPage} from "./LoginCallbackPage";
 import {CreateDishPage} from "./CreateDishPage";
 import {DishListPage} from "./DishListPage";
 import {EditDishPage} from "./EditDishPage";
+import {DishList} from "./DishList";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -72,20 +73,22 @@ export function Application() {
             <h1>Welcome to the PG6301 cantine</h1>
             <div id={"lProfile"}><Link to={"/profile"}>Profile</Link></div>
             <div id={"lLogin"}><Link to={"/login"}>Login</Link></div>
+
+            <DishList dishApi={dishApi} />
           </Route>
 
           <Route path={"/profile"}>
             <ProfilePage loadProfile={loadProfile}/>
             <ul>
               <li>
-                <Link to={"/create"}>Create dish</Link>
+                <Link to={"/dishes"}>Menu</Link>
               </li>
               <li>
-                <Link to={"/dishes"}>List dish</Link>
+                <Link to={"/create"}>Add dish to menu</Link>
               </li>
             </ul>
           </Route>
-          <Route exact path={"/login"}>
+          <Route exact path={"/login"} >
             <LoginPage identityProvider={googleIdentityProvider}/>
           </Route>
           <Route path={"/login/callback"}>
