@@ -5,6 +5,9 @@ import { ProfilePage } from "./ProfilePage";
 import { fetchJson } from "./lib/http";
 import { LoginPage } from "./LoginPage";
 import { LoginCallbackPage } from "./LoginCallbackPage";
+import {CreateDishPage} from "./CreateDishPage";
+import {DishListPage} from "./DishListPage";
+import {EditDishPage} from "./EditDishPage";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -22,6 +25,28 @@ function useLocalStorage(key) {
 }
 
 export function Application() {
+
+  const dishApi = {
+    listDishes: async () => {
+      const res = await fetch("/api/dishes");
+      if (!res.ok) {
+        throw new Error(
+            `Something went wrong loading ${res.url}: ${res.statusText}`
+        );
+      }
+      return await res.json();
+    },
+    getDish: async (id) => {
+      const res = await fetch(`/api/dishes/${id}`);
+      if (!res.ok) {
+        throw new Error(
+            `Something went wrong loading ${res.url}: ${res.statusText}`
+        );
+      }
+      return await res.json();
+    },
+  };
+
   const [access_token, setAccess_token] = useLocalStorage("access_token");
 
   const googleIdentityProvider = {
@@ -56,7 +81,7 @@ export function Application() {
                 <Link to={"/create"}>Create dish</Link>
               </li>
               <li>
-                <Link to={"/books"}>List dish</Link>
+                <Link to={"/dishes"}>List dish</Link>
               </li>
             </ul>
           </Route>
@@ -70,16 +95,13 @@ export function Application() {
             />
           </Route>
           <Route path={"/create"}>
-            {/*<CreateBookPage />*/}
-            <h1>Create dish</h1>
+            <CreateDishPage />
           </Route>
-          <Route exact path={"/books"}>
-            {/*<BookListPage bookApi={bookApi} />*/}
-            <h1>List dish</h1>
+          <Route exact path={"/dishes"}>
+            <DishListPage dishApi={dishApi} />
           </Route>
-          <Route path={"/books/:id/edit"}>
-            {/*<EditBookPage bookApi={bookApi} />*/}
-            <h1>Edit dish</h1>
+          <Route path={"/dishes/:id/edit"}>
+            <EditDishPage dishApi={dishApi} />
           </Route>
 
           <Route>
