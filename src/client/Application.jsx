@@ -76,17 +76,8 @@ export function Application() {
 
             <DishList dishApi={dishApi} />
           </Route>
-
           <Route path={"/profile"}>
             <ProfilePage loadProfile={loadProfile}/>
-            <ul>
-              <li>
-                <Link to={"/dishes"}>Menu</Link>
-              </li>
-              <li>
-                <Link to={"/create"}>Add dish to menu</Link>
-              </li>
-            </ul>
           </Route>
           <Route exact path={"/login"} >
             <LoginPage identityProvider={googleIdentityProvider}/>
