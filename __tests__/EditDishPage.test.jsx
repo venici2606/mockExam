@@ -20,4 +20,16 @@ describe("edit dish page", () => {
 
 
 
+
+
+    it("can show loading screen", async () => {
+        const getDish = () => new Promise((resolve) => {});
+        const container = document.createElement("div");
+        await act(async () => {
+            await ReactDOM.render(<MemoryRouter> <EditDishPage dishApi={{getDish }}/> </MemoryRouter>, container);
+        });
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(container.querySelector("div").textContent).toEqual("Loading ...");
+    });
+
 });

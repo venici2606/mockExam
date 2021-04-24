@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`edit dish page can show information about an existing dish 1`] = `" <form><h1>Edit existing dish (Pizza)</h1><div><label>Dish name: <input type=\\"text\\" value=\\"Pizza\\"></label></div><div><label>Price: <input type=\\"number\\" value=\\"119\\"></label></div><button>Submit</button></form> "`;
+
+exports[`edit dish page can show loading screen 1`] = `" <div>Loading ...</div> "`;
