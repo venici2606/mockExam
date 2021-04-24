@@ -73,8 +73,10 @@ export function Application() {
               <Link to={"/login"}>Login</Link>
             </div>
 
-            <DishList dishApi={dishApi} />
+            <DishListPage dishApi={dishApi} />
+            {/*<DishList dishApi={dishApi} />*/}
           </Route>
+
           <Route path={"/profile"}>
             <ProfilePage loadProfile={loadProfile} />
           </Route>
@@ -91,7 +93,11 @@ export function Application() {
             <CreateDishPage dishApi={dishApi} />
           </Route>
           <Route exact path={"/dishes"}>
-            <DishListPage dishApi={dishApi} />
+            <DishListPage
+              loadProfile={loadProfile}
+              dishApi={dishApi}
+              msg={"You can click on the dishes to change them!"}
+            />
           </Route>
           <Route path={"/dishes/:id/edit"}>
             <EditDishPage dishApi={dishApi} />
