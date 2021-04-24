@@ -36,4 +36,18 @@ describe("edit dish page", () => {
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("div").textContent).toEqual("Loading ...");
   });
+
+  it("can show error message", async () => {
+    const getDish = () => {
+      throw new Error("Failed to load");
+    };
+
+    const container = await renderForTest(
+      <EditDishPage dishApi={{ getDish }} />
+    );
+    expect(container.innerHTML).toMatchSnapshot();
+    expect(container.querySelector("div").textContent).toEqual(
+      "Something went wrong: Error: Failed to load"
+    );
+  });
 });
