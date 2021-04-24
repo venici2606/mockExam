@@ -2,7 +2,7 @@ import { EditDishPage } from "../src/client/EditDishPage";
 import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router";
-import { act } from "react-dom/test-utils";
+import { act, Simulate } from "react-dom/test-utils";
 
 async function renderForTest(child) {
   const container = document.createElement("div");
@@ -49,5 +49,25 @@ describe("edit dish page", () => {
     expect(container.querySelector("div").textContent).toEqual(
       "Something went wrong: Error: Failed to load"
     );
+  });
+
+  it("updates server on submit", async () => {
+    const dish = {
+      name: "Italian salad",
+      price: "99",
+    };
+    const getDish = () => dish;
+    const updateDish = jest.fn();
+    const container = await renderForTest(
+      <EditDishPage dishApi={{ getDish, updateDish }} />
+    );
+    Simulate.change(container.querySelector("input"), {
+      target: { value: "Salad bowl" },
+    });
+    Simulate.submit(container.querySelector("form"));
+    expect(updateDish).toBeCalledWith(undefined, {
+      ...dish,
+      name: "Salad bowl",
+    });
   });
 });
