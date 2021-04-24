@@ -28,10 +28,10 @@ export function ProfilePage({ loadProfile }) {
           <img src={data.picture} />
         </div>
       )}
-      <div>{data && <Link to={"/dishes"}>Menu</Link>}</div>
       <div id={"addDish"}>
-        {data && <Link to={"/create"}>Add dish to menu</Link>}
+        {data && <Link to={"/create"}>Create dish</Link>}
       </div>
+      <div>{data && <Link to={"/dishes"}>Edit dish</Link>}</div>
     </div>
   );
 }

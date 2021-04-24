@@ -3,14 +3,16 @@ import { LoadingView } from "./components/LoadingView";
 import { InputField } from "./components/InputField";
 import { useLoading } from "./useLoading";
 import { ErrorView } from "./components/ErrorView";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 function EditDishForm({ dish, onSubmit }) {
   const [name, setName] = useState(dish.name);
   const [price, setPrice] = useState(dish.price);
+  const history = useHistory();
 
   async function submit(e) {
     onSubmit(e, { name, price });
+    history.push("/dishes");
 
     alert("You changed the dish!");
   }
