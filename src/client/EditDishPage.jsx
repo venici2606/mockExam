@@ -5,19 +5,12 @@ import { useLoading } from "./useLoading";
 import { ErrorView } from "./components/ErrorView";
 import {useParams} from "react-router";
 
-function EditDishForm({ dish }) {
+function EditDishForm({ dish, onSubmit }) {
   const [name, setName] = useState(dish.name);
   const [price, setPrice] = useState(dish.price);
 
   async function submit(e) {
-    e.preventDefault();
-    await fetch(`/api/dishes/${dish.id}`, {
-      method: "PUT",
-      body: JSON.stringify({ name, price }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    onSubmit(e, {name, price});
 
     alert("You changed the dish!");
   }
@@ -40,18 +33,26 @@ function EditDishForm({ dish }) {
 export function EditDishPage({ dishApi }) {
   const { id } = useParams();
 
-  const { loading, error, data, reload } = useLoading(
+  const { loading, error, data: dish, reload } = useLoading(
     async () => await dishApi.getDish(id),
     [id]
   );
 
+    async function handleSubmit(e, {name, price}) {
+        e.preventDefault();
+        await dishApi.updateDish(id, {name, price});
+
+        alert("You changed the dish!");
+    }
+
   if (error) {
-    return <ErrorView error={error} reload={reload()} />;
+    return (
+        <ErrorView error={error} reload={reload()} />);
   }
 
-  if (loading || !data) {
+  if (loading || !dish) {
     return <LoadingView />;
   }
 
-  return <EditDishForm dish={data} />;
+  return <EditDishForm dish={dish} onSubmit={handleSubmit}/>;
 }

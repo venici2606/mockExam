@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Switch} from "react-router";
 import {ProfilePage} from "./ProfilePage";
-import {fetchJson} from "./lib/http";
+import {fetchJSON, fetchJson, postJSON} from "./lib/http";
 import {LoginPage} from "./LoginPage";
 import {LoginCallbackPage} from "./LoginCallbackPage";
 import {CreateDishPage} from "./CreateDishPage";
@@ -28,24 +28,19 @@ function useLocalStorage(key) {
 export function Application() {
 
   const dishApi = {
-    listDishes: async () => {
-      const res = await fetch("/api/dishes");
-      if (!res.ok) {
-        throw new Error(
-            `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
+    listDishes: async () => await fetchJSON("/api/dishes"),
+    getDish: async (id) => await fetchJSON(`/api/dishes/${id}`),
+    createDish: async ({name, price}) => {
+      return postJSON("/api/dishes", {
+        json: {name, price},
+        method: "POST"
+      });
     },
-    getDish: async (id) => {
-      const res = await fetch(`/api/dishes/${id}`);
-      if (!res.ok) {
-        throw new Error(
-            `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
-    },
+    updateDish: async (id, {name, price}) =>
+        postJSON(`/api/dishes/${id}`, {
+          json: {name, price},
+          method: "PUT"
+        }),
   };
 
   const [access_token, setAccess_token] = useLocalStorage("access_token");
@@ -89,7 +84,7 @@ export function Application() {
             />
           </Route>
           <Route path={"/create"}>
-            <CreateDishPage />
+            <CreateDishPage dishApi={dishApi}/>
           </Route>
           <Route exact path={"/dishes"}>
             <DishListPage dishApi={dishApi} />

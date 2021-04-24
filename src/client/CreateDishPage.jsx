@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { InputField } from "./components/InputField";
 
-export function CreateDishPage() {
+export function CreateDishPage({dishApi}) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
   async function submit(e) {
     e.preventDefault();
-    await fetch("/api/dishes", {
-      method: "POST",
-      body: JSON.stringify({ name, price }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+    await dishApi.createDish({name, price});
     alert("You added a dish!");
   }
 
