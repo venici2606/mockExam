@@ -20,12 +20,16 @@ export function DishListPage({ dishApi }) {
   return (
     <>
       <h1>Menu</h1>
-      {dishes.map(({ id, name, price}) => (
+      {dishes.map(({ id, name, price }) => (
         <li key={id}>
-          <Link to={`/dishes/${id}/edit`}>Dish {id}: {name} {price} kr</Link>
+          <Link to={`/dishes/${id}/edit`}>
+            Dish {id}: {name} {price} kr
+          </Link>
         </li>
       ))}
-      <p><i>You can click on the dishes to change them!</i></p>
+      <p>
+        <i>You can click on the dishes to change them!</i>
+      </p>
     </>
   );
 }

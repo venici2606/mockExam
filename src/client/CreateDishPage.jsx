@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { InputField } from "./components/InputField";
 
-export function CreateDishPage({dishApi}) {
+export function CreateDishPage({ dishApi }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
   async function submit(e) {
     e.preventDefault();
-    await dishApi.createDish({name, price});
+    await dishApi.createDish({ name, price });
     alert("You added a dish!");
   }
 

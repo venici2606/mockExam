@@ -3,14 +3,14 @@ import { LoadingView } from "./components/LoadingView";
 import { InputField } from "./components/InputField";
 import { useLoading } from "./useLoading";
 import { ErrorView } from "./components/ErrorView";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 
 function EditDishForm({ dish, onSubmit }) {
   const [name, setName] = useState(dish.name);
   const [price, setPrice] = useState(dish.price);
 
   async function submit(e) {
-    onSubmit(e, {name, price});
+    onSubmit(e, { name, price });
 
     alert("You changed the dish!");
   }
@@ -38,21 +38,20 @@ export function EditDishPage({ dishApi }) {
     [id]
   );
 
-    async function handleSubmit(e, {name, price}) {
-        e.preventDefault();
-        await dishApi.updateDish(id, {name, price});
+  async function handleSubmit(e, { name, price }) {
+    e.preventDefault();
+    await dishApi.updateDish(id, { name, price });
 
-        alert("You changed the dish!");
-    }
+    alert("You changed the dish!");
+  }
 
   if (error) {
-    return (
-        <ErrorView error={error} reload={reload()} />);
+    return <ErrorView error={error} reload={reload()} />;
   }
 
   if (loading || !dish) {
     return <LoadingView />;
   }
 
-  return <EditDishForm dish={dish} onSubmit={handleSubmit}/>;
+  return <EditDishForm dish={dish} onSubmit={handleSubmit} />;
 }

@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {BrowserRouter, Link} from "react-router-dom";
-import {Route, Switch} from "react-router";
-import {ProfilePage} from "./ProfilePage";
-import {fetchJSON, fetchJson, postJSON} from "./lib/http";
-import {LoginPage} from "./LoginPage";
-import {LoginCallbackPage} from "./LoginCallbackPage";
-import {CreateDishPage} from "./CreateDishPage";
-import {DishListPage} from "./DishListPage";
-import {EditDishPage} from "./EditDishPage";
-import {DishList} from "./DishList";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Link } from "react-router-dom";
+import { Route, Switch } from "react-router";
+import { ProfilePage } from "./ProfilePage";
+import { fetchJSON, fetchJson, postJSON } from "./lib/http";
+import { LoginPage } from "./LoginPage";
+import { LoginCallbackPage } from "./LoginCallbackPage";
+import { CreateDishPage } from "./CreateDishPage";
+import { DishListPage } from "./DishListPage";
+import { EditDishPage } from "./EditDishPage";
+import { DishList } from "./DishList";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -26,21 +26,20 @@ function useLocalStorage(key) {
 }
 
 export function Application() {
-
   const dishApi = {
     listDishes: async () => await fetchJSON("/api/dishes"),
     getDish: async (id) => await fetchJSON(`/api/dishes/${id}`),
-    createDish: async ({name, price}) => {
+    createDish: async ({ name, price }) => {
       return postJSON("/api/dishes", {
-        json: {name, price},
-        method: "POST"
+        json: { name, price },
+        method: "POST",
       });
     },
-    updateDish: async (id, {name, price}) =>
-        postJSON(`/api/dishes/${id}`, {
-          json: {name, price},
-          method: "PUT"
-        }),
+    updateDish: async (id, { name, price }) =>
+      postJSON(`/api/dishes/${id}`, {
+        json: { name, price },
+        method: "PUT",
+      }),
   };
 
   const [access_token, setAccess_token] = useLocalStorage("access_token");
@@ -62,29 +61,34 @@ export function Application() {
   }
 
   return (
-      <div id={"container"}><BrowserRouter>
+    <div id={"container"}>
+      <BrowserRouter>
         <Switch>
           <Route exact path={"/"} id={"container"}>
             <h1>Welcome to the PG6301 cantine</h1>
-            <div id={"lProfile"}><Link to={"/profile"}>Profile</Link></div>
-            <div id={"lLogin"}><Link to={"/login"}>Login</Link></div>
+            <div id={"lProfile"}>
+              <Link to={"/profile"}>Profile</Link>
+            </div>
+            <div id={"lLogin"}>
+              <Link to={"/login"}>Login</Link>
+            </div>
 
             <DishList dishApi={dishApi} />
           </Route>
           <Route path={"/profile"}>
-            <ProfilePage loadProfile={loadProfile}/>
+            <ProfilePage loadProfile={loadProfile} />
           </Route>
-          <Route exact path={"/login"} >
-            <LoginPage identityProvider={googleIdentityProvider}/>
+          <Route exact path={"/login"}>
+            <LoginPage identityProvider={googleIdentityProvider} />
           </Route>
           <Route path={"/login/callback"}>
             <LoginCallbackPage
-                identityProvider={googleIdentityProvider}
-                onAccessToken={(access_token) => setAccess_token(access_token)}
+              identityProvider={googleIdentityProvider}
+              onAccessToken={(access_token) => setAccess_token(access_token)}
             />
           </Route>
           <Route path={"/create"}>
-            <CreateDishPage dishApi={dishApi}/>
+            <CreateDishPage dishApi={dishApi} />
           </Route>
           <Route exact path={"/dishes"}>
             <DishListPage dishApi={dishApi} />
@@ -97,6 +101,7 @@ export function Application() {
             <h1>Page not found</h1>
           </Route>
         </Switch>
-      </BrowserRouter></div>
+      </BrowserRouter>
+    </div>
   );
 }

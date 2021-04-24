@@ -47,10 +47,6 @@ app.post("/api/dishes", (req, res) => {
   res.status(201).end();
 });
 
-
-
-
-
 const discoveryURL =
   "https://accounts.google.com/.well-known/openid-configuration";
 
@@ -81,7 +77,6 @@ app.get("/api/profile", async (req, res) => {
   }
   return res.json(req.userinfo);
 });
-
 
 app.use((req, res, next) => {
   if (req.method === "GET" && !req.path.startsWith("/api")) {

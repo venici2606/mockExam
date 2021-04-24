@@ -1,24 +1,25 @@
 #container {
-    position: absolute;
-    padding: 20px;
-    background-color: #efeaf8;
-    height: 500px;
-    width: 500px;
+  position: absolute;
+  padding: 20px;
+  background-color: #efeaf8;
+  height: 500px;
+  width: 500px;
 
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
-h1, #lProfile, #lLogin, #btnLogin, .profile {
-    text-align: center;
+h1,
+#lProfile,
+#lLogin,
+#btnLogin,
+.profile {
+  text-align: center;
 }
 
 p {
-    text-align: end;
+  text-align: end;
 }
-
-
-

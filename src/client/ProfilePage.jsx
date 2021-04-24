@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoading } from "./lib/useLoading";
-import {Link} from "react-router-dom";
-import {Route} from "react-router";
+import { Link } from "react-router-dom";
+import { Route } from "react-router";
 
 export function ProfilePage({ loadProfile }) {
   const { loading, error, data } = useLoading(async () => await loadProfile());
@@ -29,10 +29,9 @@ export function ProfilePage({ loadProfile }) {
         </div>
       )}
       <div>{data && <Link to={"/dishes"}>Menu</Link>}</div>
-        <div id={"addDish"}>{data && <Link to={"/create"}>Add dish to menu</Link>}</div>
+      <div id={"addDish"}>
+        {data && <Link to={"/create"}>Add dish to menu</Link>}
+      </div>
     </div>
-
   );
-
-
 }
