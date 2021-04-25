@@ -8,6 +8,7 @@ import { LoginCallbackPage } from "./LoginCallbackPage";
 import { CreateDishPage } from "./CreateDishPage";
 import { DishListPage } from "./DishListPage";
 import { EditDishPage } from "./EditDishPage";
+import { ChatPage } from "./ChatPage";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -71,6 +72,9 @@ export function Application() {
             <div id={"lLogin"}>
               <Link to={"/login"}>Login</Link>
             </div>
+            <div>
+              <Link to={"/chat"}>Chat</Link>
+            </div>
 
             <DishListPage dishApi={dishApi} />
           </Route>
@@ -99,6 +103,9 @@ export function Application() {
           </Route>
           <Route path={"/dishes/:id/edit"}>
             <EditDishPage dishApi={dishApi} />
+          </Route>
+          <Route path={"/chat"}>
+            <ChatPage />
           </Route>
 
           <Route>

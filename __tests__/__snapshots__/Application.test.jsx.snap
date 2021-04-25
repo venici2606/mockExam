@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`application can navigate to chat page 1`] = `"<div id=\\"container\\"><div><h1>Please log in</h1><form><input type=\\"text\\" value=\\"\\"><button>Login</button></form></div></div>"`;
+
+exports[`application can navigate to login page 1`] = `"<div id=\\"container\\"><div id=\\"btnLogin\\"><h2>Login</h2><button>Login</button></div></div>"`;
+
+exports[`application can navigate to profile page 1`] = `"<div id=\\"container\\"><div><h1>An error occurred</h1><div>ReferenceError: fetch is not defined</div></div></div>"`;
+
+exports[`application can show home page 1`] = `"<div id=\\"container\\"><h1>Welcome to the PG6301 cantine</h1><div id=\\"lProfile\\"><a href=\\"/profile\\">Profile</a></div><div id=\\"lLogin\\"><a href=\\"/login\\">Login</a></div><div><a href=\\"/chat\\">Chat</a></div><div>Loading ...</div></div>"`;

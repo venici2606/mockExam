@@ -5,6 +5,7 @@ const dishApi = require("./dishApi");
 const bodyParser = require("body-parser");
 
 const app = express();
+const wsServer = require("./websocket");
 
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
@@ -50,6 +51,17 @@ app.use((req, res, next) => {
   next();
 });
 
-const server = app.listen(3000, () => {
+/*const server = app.listen(3000, () => {
   console.log(`Server started on http://localhost:${server.address().port}`);
+});*/
+
+const server = app.listen(3000, () => {
+  server.on("upgrade", (req, socket, head) => {
+    wsServer.handleUpgrade(req, socket, head, (socket) => {
+      // This will pass control to `wsServer.on("connection")`
+
+      wsServer.emit("connection", socket, req);
+    });
+    console.log(`Server started on http://localhost:${server.address().port}`);
+  });
 });
