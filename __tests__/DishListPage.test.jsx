@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { DishListPage } from "../src/client/DishListPage";
 import { MemoryRouter } from "react-router";
+import {describe, it} from "@jest/globals";
 
 describe("dish list page", () => {
   it("show dish on dom", async () => {
     const dishApi = {
-      listDishes: () => [{ id: 1, name: "Cheeseburger", price: "" }],
+      listDishes: () => [{ id: 1, name: "Cheeseburger", price: 239 }],
     };
 
     const container = document.createElement("div");

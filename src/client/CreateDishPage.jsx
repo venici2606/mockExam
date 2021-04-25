@@ -9,9 +9,7 @@ export function CreateDishPage({ dishApi }) {
 
   async function submit(e) {
     e.preventDefault();
-    history.push("/profile");
-
-    alert("You added a dish!");
+    history.push("/");
     await dishApi.createDish({ name, price });
   }
 

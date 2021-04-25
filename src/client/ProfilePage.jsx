@@ -13,8 +13,8 @@ export function ProfilePage({ loadProfile }) {
   if (error) {
     return (
       <div>
-        <h1>An error occurred</h1>
-        <div>{error.toString()}</div>
+          <pre>You are not logget in. Go to profile page to use Google Login</pre>
+          <Link to={"/login"}><button>Google Login</button></Link>
       </div>
     );
   }

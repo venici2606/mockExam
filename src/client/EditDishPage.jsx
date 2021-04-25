@@ -13,8 +13,6 @@ function EditDishForm({ dish, onSubmit }) {
   async function submit(e) {
     onSubmit(e, { name, price });
     history.push("/dishes");
-
-    alert("You changed the dish!");
   }
 
   return (
@@ -43,17 +41,10 @@ export function EditDishPage({ dishApi }) {
   async function handleSubmit(e, { name, price }) {
     e.preventDefault();
     await dishApi.updateDish(id, { name, price });
-
-    alert("You changed the dish!");
   }
-
-  if (error) {
-    return <ErrorView error={error} reload={reload} />;
-  }
-
-  if (loading || !dish) {
-    return <LoadingView />;
-  }
+  
+  if (error) return <ErrorView error={error} reload={reload} />;
+  if (loading || !dish) return <LoadingView />;
 
   return <EditDishForm dish={dish} onSubmit={handleSubmit} />;
 }

@@ -8,7 +8,8 @@ import { LoginCallbackPage } from "./LoginCallbackPage";
 import { CreateDishPage } from "./CreateDishPage";
 import { DishListPage } from "./DishListPage";
 import { EditDishPage } from "./EditDishPage";
-import { DishList } from "./DishList";
+
+
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -21,7 +22,7 @@ function useLocalStorage(key) {
     } else {
       localStorage.removeItem(key);
     }
-  }, [value]);
+  }, [value, ]);
   return [value, setValue];
 }
 
@@ -59,24 +60,22 @@ export function Application() {
       },
     });
   }
-
+  
   return (
     <div id={"container"}>
       <BrowserRouter>
+        {/*Front page - Components*/}
+        <Link to={"/"}>Front Page</Link>
         <Switch>
           <Route exact path={"/"} id={"container"}>
-            <h1>Welcome to the PG6301 cantine</h1>
-            <div id={"lProfile"}>
-              <Link to={"/profile"}>Profile</Link>
-            </div>
-            <div id={"lLogin"}>
-              <Link to={"/login"}>Login</Link>
-            </div>
-
+            <h1>Kristiania Cantine</h1>
+            <Link to={"/profile"}>Profile</Link>
+            <br/>
+            <Link to={"/login"}>Login</Link>
             <DishListPage dishApi={dishApi} />
-            {/*<DishList dishApi={dishApi} />*/}
           </Route>
 
+          {/*Login - Components*/}
           <Route path={"/profile"}>
             <ProfilePage loadProfile={loadProfile} />
           </Route>
@@ -89,6 +88,8 @@ export function Application() {
               onAccessToken={(access_token) => setAccess_token(access_token)}
             />
           </Route>
+
+          {/*Cantine - Components*/}
           <Route path={"/create"}>
             <CreateDishPage dishApi={dishApi} />
           </Route>
@@ -102,7 +103,7 @@ export function Application() {
           <Route path={"/dishes/:id/edit"}>
             <EditDishPage dishApi={dishApi} />
           </Route>
-
+          
           <Route>
             <h1>Page not found</h1>
           </Route>
