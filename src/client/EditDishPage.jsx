@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LoadingView } from "./components/LoadingView";
 import { InputField } from "./components/InputField";
-import { useLoading } from "./useLoading";
+import { useLoading } from "./lib/useLoading";
 import { ErrorView } from "./components/ErrorView";
 import { useHistory, useParams } from "react-router";
 

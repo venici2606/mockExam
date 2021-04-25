@@ -1,7 +1,7 @@
 import React from "react";
 import { LoadingView } from "./components/LoadingView";
 import { Link } from "react-router-dom";
-import { useLoading } from "./useLoading";
+import { useLoading } from "./lib/useLoading";
 import { ErrorView } from "./components/ErrorView";
 
 export function DishListPage({ dishApi, loadProfile, msg }) {
