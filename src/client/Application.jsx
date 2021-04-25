@@ -8,7 +8,7 @@ import { LoginCallbackPage } from "./LoginCallbackPage";
 import { CreateDishPage } from "./CreateDishPage";
 import { DishListPage } from "./DishListPage";
 import { EditDishPage } from "./EditDishPage";
-import { ChatPage } from "./ChatPage";
+import { ChatView } from "./ChatPage";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -105,7 +105,7 @@ export function Application() {
             <EditDishPage dishApi={dishApi} />
           </Route>
           <Route path={"/chat"}>
-            <ChatPage />
+            <ChatView />
           </Route>
 
           <Route>
