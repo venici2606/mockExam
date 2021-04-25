@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create dish view renders on real DOM 1`] = `"<form><h1>Create a new dish</h1><div><label>Dish name: <input type=\\"text\\" value=\\"\\"></label></div><div><label>Price: <input type=\\"number\\" value=\\"\\"></label></div><button>Submit</button></form>"`;
+
+exports[`create dish view test renders view 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <h1>
+    Create a new dish
+  </h1>
+  <div>
+    <label>
+      Dish name
+      :
+       
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+  <div>
+    <label>
+      Price
+      :
+       
+      <input
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </label>
+  </div>
+  <button>
+    Submit
+  </button>
+</form>
+`;
