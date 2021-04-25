@@ -47,7 +47,7 @@ export function Application() {
     discoveryURL:
       "https://accounts.google.com/.well-known/openid-configuration",
     client_id:
-      "186464366390-duk52tjp6srhuc4jdhh7mvhi07m1s40h.apps.googleusercontent.com",
+      "186464366390-837rhag9msptc4ii75n58au07mhv8p7k.apps.googleusercontent.com",
     scope: "openid email profile",
   };
 
