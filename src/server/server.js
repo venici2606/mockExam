@@ -22,19 +22,19 @@ app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
 const dishApi = express.Router();
 
-dishApi.get("/api/dishes", (req, res) => {
+dishApi.get("", (req, res) => {
   console.log(dishes);
   res.json(dishes);
 });
 
-dishApi.get("/api/dishes/:id", (req, res) => {
+dishApi.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const dish = dishes.find((b) => b.id === id);
   console.log({ dish });
   res.json(dish);
 });
 
-dishApi.put("/api/dishes/:id", (req, res) => {
+dishApi.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const dishIndex = dishes.findIndex((b) => b.id === id);
   const { name, price } = req.body;
@@ -42,14 +42,14 @@ dishApi.put("/api/dishes/:id", (req, res) => {
   res.status(200).end();
 });
 
-dishApi.post("/api/dishes", (req, res) => {
+dishApi.post("", (req, res) => {
   const { name, price } = req.body;
   console.log(req.body);
   dishes.push({ name, price, id: dishes.length + 1 });
   res.status(201).end();
 });
 
-app.use(dishApi);
+app.use("/api/dishes", dishApi);
 
 const discoveryURL =
   "https://accounts.google.com/.well-known/openid-configuration";
