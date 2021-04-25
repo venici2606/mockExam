@@ -44,7 +44,7 @@ describe("application", () => {
     );
   });
 
-  xit("can navigate to login page", async () => {
+  it("can navigate to login page", async () => {
     const container = document.createElement("div");
     await act(async () => {
       await ReactDOM.render(
@@ -54,16 +54,16 @@ describe("application", () => {
         container
       );
     });
-    const createChatLink = [...container.querySelectorAll("a")].find(
+    const createLoginLink = [...container.querySelectorAll("a")].find(
       (a) => a.textContent === "Login"
     );
     await act(async () => {
-      await createChatLink.dispatchEvent(
+      await createLoginLink.dispatchEvent(
         new MouseEvent("click", { bubbles: true })
       );
     });
     expect(container.innerHTML).toMatchSnapshot();
-    expect(container.querySelector("h1").textContent).toEqual("Login");
+    expect(container.querySelector("h2").textContent).toEqual("Login");
   });
 
   it("can navigate to chat page", async () => {

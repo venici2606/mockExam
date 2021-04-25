@@ -12,13 +12,22 @@
   margin: auto;
 }
 
-h1,
-#lProfile,
-#lLogin,
-#btnLogin,
-.profile {
+h1, .profile {
   text-align: center;
 }
+
+#homeProfile {
+  text-align: left;
+}
+
+#homeLogin {
+  text-align: center;
+}
+
+#homeChat {
+  text-align: right;
+}
+
 
 p {
   text-align: end;

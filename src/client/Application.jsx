@@ -48,7 +48,7 @@ export function Application() {
     discoveryURL:
       "https://accounts.google.com/.well-known/openid-configuration",
     client_id:
-      "186464366390-b8udbu2b6i4fji93322jf5kim24gcseq.apps.googleusercontent.com",
+      "186464366390-0q35ld9arp995d3an9m28rv3f9li0k0v.apps.googleusercontent.com",
     scope: "openid email profile",
   };
 
@@ -66,13 +66,13 @@ export function Application() {
         <Switch>
           <Route exact path={"/"} id={"container"}>
             <h1>Welcome to the PG6301 cantine</h1>
-            <div id={"lProfile"}>
+            <div id={"homeProfile"}>
               <Link to={"/profile"}>Profile</Link>
             </div>
-            <div id={"lLogin"}>
+            <div id={"homeLogin"}>
               <Link to={"/login"}>Login</Link>
             </div>
-            <div>
+            <div id={"homeChat"}>
               <Link to={"/chat"}>Chat</Link>
             </div>
 
