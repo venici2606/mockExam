@@ -8,7 +8,6 @@ import { LoginCallbackPage } from "./LoginCallbackPage";
 import { CreateDishPage } from "./CreateDishPage";
 import { DishListPage } from "./DishListPage";
 import { EditDishPage } from "./EditDishPage";
-import { DishList } from "./DishList";
 
 function useLocalStorage(key) {
   const [value, setValue] = useState(() =>
@@ -74,7 +73,6 @@ export function Application() {
             </div>
 
             <DishListPage dishApi={dishApi} />
-            {/*<DishList dishApi={dishApi} />*/}
           </Route>
 
           <Route path={"/profile"}>

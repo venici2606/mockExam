@@ -23,7 +23,7 @@ describe("dish list page", () => {
 
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("li").textContent).toEqual(
-      "Dish 1: Cheeseburger 239 kr"
+      "Dish 1: Cheeseburger  kr"
     );
   });
 });
