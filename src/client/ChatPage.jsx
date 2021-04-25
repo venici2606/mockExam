@@ -1,92 +1,95 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export function ChatPage() {
-  const [username, setUsername] = useState();
-  if (!username) {
-    return <ChatLoginPage onLogin={(username) => setUsername(username)} />;
+function useWsChat() {
+  const [chatLog, setChatLog] = useState([]);
+  const [ws, setWs] = useState();
+  const connected = useRef(false);
+
+  function connect() {
+    console.log("Connecting");
+    const ws = new WebSocket("ws://" + window.location.host);
+    setWs(ws);
+    ws.onopen = (event) => {
+      console.log("Opened", event);
+      connected.current = true;
+    };
+    ws.onclose = () => {
+      if (connected.current) {
+        setTimeout(connect, 1000);
+      } else {
+        setTimeout(connect, 10000);
+      }
+      connected.current = false;
+    };
+    ws.onerror = (event) => {
+      console.log(event);
+    };
+    ws.onmessage = (msg) => {
+      console.log(msg);
+      const { username, message, id } = JSON.parse(msg.data);
+      setChatLog((chatLog) => [...chatLog, { username, message, id }]);
+    };
   }
 
-  return <ChatView username={username} />;
+  useEffect(() => connect(), []);
+
+  function sendMessage(json) {
+    ws.send(JSON.stringify(json));
+  }
+  return { chatLog, sendMessage };
 }
 
-function ChatLoginPage({ onLogin }) {
-  const [username, setUsername] = useState("");
-  function handleSubmit(e) {
-    e.preventDefault();
-    onLogin(username);
+export function ChatPage({ username }) {
+  const { chatLog, sendMessage } = useWsChat();
+
+  function handleSendMessage(message) {
+    sendMessage({ username, message });
   }
+
   return (
-    <div>
-      <h1>Please log in</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button>Login</button>
-      </form>
-    </div>
+    <ChatView
+      username={username}
+      chatLog={chatLog}
+      onSendMessage={handleSendMessage}
+    />
   );
 }
 
-export function ChatView({ username }) {
-  const [chatLog, setChatLog] = useState([]);
+export function ChatView({ username, chatLog, onSendMessage }) {
   const [message, setMessage] = useState("");
-  const [ws, setWs] = useState();
 
-  useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3000");
-    ws.onmessage = (event) => {
-      console.log("message", event);
-      const { message, id, username } = JSON.parse(event.data);
-      setChatLog((chatLog) => [...chatLog, { message, id, username }]);
-    };
-    ws.onopen = (event) => {
-      ws.send(
-        JSON.stringify({
-          type: "login",
-          username,
-        })
-      );
-    };
-    setWs(ws);
-  }, []);
-
-  function handleSubmitMessage(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    ws.send(
-      JSON.stringify({
-        type: "message",
-        message: message,
-      })
-    );
+    onSendMessage(message);
     setMessage("");
   }
 
   return (
-    <div>
-      <h1>Chat page</h1>
-      <div>
-        {chatLog.map(({ message, id, username }) => (
-          <div key={id}>
-            <strong>{username}: </strong>
-            {message}
-          </div>
-        ))}
-      </div>
-      <div>
-        <form onSubmit={handleSubmitMessage}>
+    <>
+      <header>
+        <h1>Chat application</h1>
+      </header>
+      <main>
+        <h2>Chat started...</h2>
+        <div>Welcome {username}</div>
+        <div className={"chatLog"}>
+          {chatLog.map(({ id, username, message }) => (
+            <div key={id} className={"message"}>
+              <strong>{username}:</strong> {message}
+            </div>
+          ))}
+        </div>
+      </main>
+      <footer>
+        <form onSubmit={handleSubmit}>
           <input
-            type="text"
             autoFocus={true}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <button>Send</button>
         </form>
-      </div>
-    </div>
+      </footer>
+    </>
   );
 }
