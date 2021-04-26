@@ -34,6 +34,7 @@ function testChangeValue(input, value) {
 describe("create dish view", () => {
   it("test renders view", async () => {
     const createDish = jest.fn();
+    global.alert = jest.fn();
     let view;
     await TestRenderer.act(async () => {
       view = TestRenderer.create(
